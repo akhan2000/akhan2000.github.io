@@ -1,3 +1,5 @@
+// SkillSection.js
+
 import React, { Component } from "react";
 import "./Skills.css";
 import SoftwareSkill from "../../components/softwareSkills/SoftwareSkill";
@@ -7,15 +9,45 @@ import DataScienceImg from "./DataScienceImg";
 import FullStackImg from "./FullStackImg";
 import CloudInfraImg from "./CloudInfraImg";
 import DesignImg from "./DesignImg";
+import artisanImage from "../../assests/images/artisan_ui.jpg";
 
-function GetSkillSvg(props) {
-  if (props.fileName === "DataScienceImg")
-    return <DataScienceImg theme={props.theme} />;
-  else if (props.fileName === "FullStackImg")
-    return <FullStackImg theme={props.theme} />;
-  else if (props.fileName === "CloudInfraImg")
-    return <CloudInfraImg theme={props.theme} />;
-  return <DesignImg theme={props.theme} />;
+function GetSkillMedia(props) {
+  const { fileName, theme, videoLink } = props;
+
+  if (videoLink) {
+    // If a videoLink is provided, embed the video using iframe
+    return (
+      <div className="skills-video">
+        <iframe
+          src={videoLink}
+          title="Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+        ></iframe>
+      </div>
+    );
+  } else if (fileName === "DataScienceImg") {
+    return <DataScienceImg theme={theme} />;
+  } else if (fileName === "FullStackImg") {
+    return <FullStackImg theme={theme} />;
+  } else if (fileName === "CloudInfraImg") {
+    return <CloudInfraImg theme={theme} />;
+  } else if (fileName === "DesignImg") {
+    return <DesignImg theme={theme} />;
+  } else if (fileName === "artisan_ui.jpg") {
+    return (
+      <img
+        src={artisanImage}
+        alt="Artisan UI"
+        className="skills-image"
+        style={{ maxWidth: "100%", height: "auto", borderRadius: "10px" }}
+      />
+    );
+  } else {
+    return null; // Handle any other cases if necessary
+  }
 }
 
 class SkillSection extends Component {
@@ -28,11 +60,11 @@ class SkillSection extends Component {
             <div key={i} className="skills-main-div">
               <Fade left duration={2000}>
                 <div className="skills-image-div">
-                  {/* <img
-                    alt="Asfandyar is Analysing Data"
-                    src={require(`../../assests/images/${skill.imagePath}`)}
-                  ></img> */}
-                  <GetSkillSvg fileName={skill.fileName} theme={theme} />
+                  <GetSkillMedia
+                    fileName={skill.fileName}
+                    theme={theme}
+                    videoLink={skill.videoLink}
+                  />
                 </div>
               </Fade>
 
@@ -47,10 +79,10 @@ class SkillSection extends Component {
                 </Fade>
                 <Fade right duration={2000}>
                   <div>
-                    {skill.skills.map((skillSentence, i) => {
+                    {skill.skills.map((skillSentence, index) => {
                       return (
                         <p
-                          key={i}
+                          key={index}
                           className="subTitle skills-text"
                           style={{ color: theme.secondaryText }}
                         >
@@ -70,3 +102,4 @@ class SkillSection extends Component {
 }
 
 export default SkillSection;
+

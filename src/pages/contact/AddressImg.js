@@ -1,3 +1,4 @@
+// src/pages/contact/addressimg.js 
 import React, { Component } from "react";
 
 export default class AddressImg extends Component {

@@ -1,3 +1,4 @@
+// src/pages/contact/blogsimg.js
 import React, { Component } from "react";
 
 export default class BlogsImg extends Component {
